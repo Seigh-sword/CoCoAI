@@ -2,8 +2,6 @@
 <html>
 <head>
   <title>Free AI Test</title>
-
-  <!-- Your REAL CDN -->
   <script src="https://storm-engine-073.app.ohara.ai/Free-AI-For-All.js"></script>
 </head>
 <body>
@@ -15,15 +13,15 @@
 <script>
 async function testAI() {
   try {
-    const res = await fetch("https://sekai.com/api/Free-AI-For-ALL/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "text", prompt: "Tell me a joke" })
-    });
-    const data = await res.json();
-    console.log(data.output); // AI response
+    const ai = new FreeAIForAll({ temperature: 0.7 });
+    
+    // Use the library
+    const response = await ai.chat("Tell me a joke");
+    document.getElementById('result').innerText = response;
+
   } catch (err) {
     console.error(err);
+    document.getElementById('result').innerText = "AI failed: " + err.message;
   }
 }
 </script>
