@@ -1,5 +1,5 @@
 // Free-AI-For-All.js
-// Official Browser SDK for Seigh_sword — uses storm-engine host by default.
+// You can use this CDN library for any projects you like ;)
 
 class FreeAIForAll {
   constructor(config = {}) {
