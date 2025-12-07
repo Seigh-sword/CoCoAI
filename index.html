@@ -12,31 +12,21 @@
 
   <div id="result" style="margin-top:20px; font-size:20px;"></div>
 
-  <script>
-    async function testAI() {
-      document.getElementById("result").innerText = "Generating...";
+<script>
+async function testAI() {
+  try {
+    const res = await fetch("https://sekai.com/api/Free-AI-For-ALL/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "text", prompt: "Tell me a joke" })
+    });
+    const data = await res.json();
+    console.log(data.output); // AI response
+  } catch (err) {
+    console.error(err);
+  }
+}
+</script>
 
-      // The REAL class name from your docs
-      const ai = new FreeAIForAll({ temperature: 0.7 });
-
-      try {
-        // Chat example
-        const text = await ai.chat("Tell me a short joke");
-        document.getElementById("result").innerText = text;
-
-        // Code example (logs to console only)
-        const code = await ai.code("Reverse a string", "javascript");
-        console.log("Generated Code:", code);
-
-        // Image example (replace page content)
-        const img = await ai.generateImage("Cute robot waving");
-        document.getElementById("result").innerHTML =
-          `<img src="${img}" width="400">`;
-
-      } catch (err) {
-        document.getElementById("result").innerText = "Error: " + err.message;
-      }
-    }
-  </script>
 </body>
 </html>
