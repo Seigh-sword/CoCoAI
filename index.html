@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Free-AI-For-ALL Test Bench</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+      padding: 20px;
+    }
+    #log {
+      margin-top: 20px;
+      padding: 10px;
+      background: #222;
+      border-radius: 10px;
+      white-space: pre-wrap;
+    }
+    input, button {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      cursor: pointer;
+      background: #4e9cff;
+      color: #fff;
+      margin-left: 10px;
+    }
+  </style>
+
+  <!-- YOUR CDN SDK -->
+  <script src="https://storm-engine-073.app.ohara.ai/Free-AI-For-All.js"></script>
+</head>
+
+<body>
+  <h1>Free-AI-For-ALL Test</h1>
+  <p>Type anything and watch the AI awaken 🔥</p>
+
+  <input id="msg" placeholder="Say something..." />
+  <button onclick="send()">Send</button>
+
+  <div id="log">Output will appear here...</div>
+
+  <script>
+    // Create your AI client
+    const ai = new FreeAI({
+      api: "https://storm-engine-073.app.ohara.ai/api/Free-AI-For-ALL/generate"
+    });
+
+    async function send() {
+      const input = document.getElementById("msg").value;
+      document.getElementById("log").textContent = "Talking to AI...";
+
+      try {
+        const result = await ai.text({
+          prompt: input,
+          model: "default"
+        });
+
+        document.getElementById("log").textContent = result.output;
+      } catch (err) {
+        document.getElementById("log").textContent = "ERROR: " + err;
+      }
+    }
+  </script>
+</body>
+</html>
