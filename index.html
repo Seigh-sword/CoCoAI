@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoCo AI | 2025</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Seigh-sword/Free-AI-For-All/refs/heads/main/assets/CoCoAiIcon.png">
+
+    <style>
+        :root {
+            --coco-brown: #5d4037;
+            --coco-cream: #f5f5dc;
+            --coco-accent: #8bc34a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header with Icon */
+        header {
+            padding: 15px;
+            background: var(--coco-brown);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .app-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--coco-accent);
+        }
+
+        /* Chat Area */
+        #chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px;
+            border-radius: 15px;
+            line-height: 1.5;
+        }
+
+        .user-msg {
+            align-self: flex-end;
+            background: var(--coco-accent);
+            color: black;
+        }
+
+        .ai-msg {
+            align-self: flex-start;
+            background: #2c2c2c;
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-icon-small {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 20px;
+            background: #1e1e1e;
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            background: #333;
+            color: white;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            background: var(--coco-accent);
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://raw.githubusercontent.com/Seigh-sword/Free-AI-For-All/refs/heads/main/assets/CoCoAiIcon.png" class="app-icon" alt="CoCo Logo">
+        <h1>CoCo AI</h1>
+    </header>
+
+    <div id="chat-container">
+        <div class="message ai-msg">
+            <img src="https://raw.githubusercontent.com/Seigh-sword/Free-AI-For-All/refs/heads/main/assets/CoCoAiIcon.png" class="ai-icon-small">
+            <span>Welcome! I am CoCo. How can I help you today?</span>
+        </div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Ask CoCo anything...">
+        <button id="sendBtn">Send</button>
+    </div>
+
+    <script type="module">
+        import { AIHandler } from './AIHandler/AIHandler.js';
+        
+        const coco = new AIHandler();
+        const chatContainer = document.getElementById('chat-container');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        async function handleSend() {
+            const text = userInput.value;
+            if(!text) return;
+
+            // Add user bubble
+            appendMessage('user', text);
+            userInput.value = '';
+
+            // Run CoCo
+            // Example: default to DeepSeek for high quality reasoning
+            coco.txt.prompt(text).set.txt.model(coco.models.text.deepseek);
+            
+            const response = await coco.generate();
+            appendMessage('ai', response);
+        }
+
+        function appendMessage(role, text) {
+            const div = document.createElement('div');
+            div.className = `message ${role}-msg`;
+            
+            if(role === 'ai') {
+                div.innerHTML = `<img src="https://raw.githubusercontent.com/Seigh-sword/Free-AI-For-All/refs/heads/main/assets/CoCoAiIcon.png" class="ai-icon-small"> <span>${text}</span>`;
+            } else {
+                div.innerText = text;
+            }
+            
+            chatContainer.appendChild(div);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        sendBtn.addEventListener('click', handleSend);
+        userInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleSend(); });
+    </script>
+</body>
+</html>
