@@ -46,7 +46,8 @@
             input.value = "";
 
             // Get CoCo's response
-            const res = await coco.txt.prompt(val).set.txt.model("deepseek-r1").generate();
+ // This will now successfully call generate() at the end!
+const res = await coco.txt.prompt(val).set.txt.model("deepseek-r1").generate();
             
             // Add AI message with icon
             chat.innerHTML += `<div class="msg ai"><img src="https://raw.githubusercontent.com/Seigh-sword/Free-AI-For-All/refs/heads/main/assets/CoCoAiIcon.png" style="width:20px;height:20px;"><span>${res}</span></div>`;
