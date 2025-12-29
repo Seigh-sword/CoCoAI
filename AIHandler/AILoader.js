@@ -1,26 +1,40 @@
 // AIHandler/AILoader.js
 export class AILoader {
     constructor() {
-        // 2025 Unified API Endpoint
-        this.endpoint = "https://gen.pollinations.ai/";
+        this.textEndpoint = "https://text.pollinations.ai/";
+        this.imageEndpoint = "https://image.pollinations.ai/"; // Dedicated image endpoint
     }
 
+    /**
+     * Loads either a text response or an image URL based on config.
+     * @param {Object} config - The configuration from AISyntax
+     * @returns {Promise<string>} - AI response (text or image URL)
+     */
     async load(config) {
-        // New 2025 Format
-        const params = new URLSearchParams({
-            model: config.text.model,
-            seed: config.params.seed,
-            json: false // Set to true if you want structured data
-        });
+        const { type, prompt, model, seed } = config;
+        let url;
 
-        const url = `${this.endpoint}${encodeURIComponent(config.text.prompt)}?${params.toString()}`;
+        if (type === 'text') {
+            url = `${this.textEndpoint}${encodeURIComponent(prompt)}?model=${model}&seed=${seed}`;
+        } else if (type === 'image') {
+            // For images, we return the direct URL which the browser will display
+            url = `${this.imageEndpoint}prompt/${encodeURIComponent(prompt)}?model=${model}&seed=${seed}&nologo=true`;
+            return url; // Directly return the URL for images
+        } else {
+            return "🥥 CoCo Error: Unknown generation type.";
+        }
 
         try {
             const response = await fetch(url);
-            if (!response.ok) throw new Error("CoCo couldn't reach the server.");
+            if (!response.ok) {
+                // Try to parse error message from response if available
+                const errorText = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
+            }
             return await response.text();
         } catch (error) {
-            return `🥥 CoCo Error: ${error.message}`;
+            console.error("CoCo Loader Error:", error);
+            return `🥥 CoCo encountered a problem: ${error.message}`;
         }
     }
 }
