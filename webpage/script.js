@@ -5,6 +5,71 @@ const libraryGrid = document.getElementById('library-grid');
 const loader = document.getElementById('loader');
 const userInput = document.getElementById('userInput');
 const chat = document.getElementById('chat');
+// webpage/script.js - Add these near the top with your other variables
+const filePicker = document.getElementById('filePicker');
+const attachBtn = document.getElementById('attachBtn');
+const filePreview = document.getElementById('filePreview');
+let attachedFileContent = "";
+
+// --- FILE ATTACHMENT LOGIC ---
+attachBtn.onclick = () => filePicker.click();
+
+filePicker.onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        attachedFileContent = event.target.result;
+        filePreview.innerHTML = `📄 Attached: <strong>${file.name}</strong> <span id="removeFile">×</span>`;
+        filePreview.classList.remove('hidden');
+        
+        // Add functionality to remove the file
+        document.getElementById('removeFile').onclick = () => {
+            attachedFileContent = "";
+            filePreview.classList.add('hidden');
+            filePicker.value = "";
+        };
+    };
+    reader.readAsText(file);
+};
+
+// --- UPDATED HANDLE ACTION ---
+async function handleAction() {
+    let prompt = userInput.value.trim();
+    
+    // If a file is attached, merge it with the prompt
+    if (attachedFileContent) {
+        prompt = `Attached File Content:\n${attachedFileContent}\n\nUser Message: ${prompt}`;
+    }
+
+    if (!prompt && !attachedFileContent) return;
+
+    // UI Feedback (Show the user message, not the whole file block to keep chat clean)
+    appendMessage('user', userInput.value || `Analyzed file: ${filePicker.files[0].name}`);
+    
+    // Clear inputs
+    userInput.value = "";
+    attachedFileContent = ""; 
+    filePreview.classList.add('hidden');
+    filePicker.value = "";
+    
+    loader.classList.remove('hidden');
+
+    try {
+        if (prompt.startsWith('/image')) {
+            // ... (keep your existing image logic here)
+        } else {
+            const res = await coco.txt.prompt(prompt).set.model('openai').generate();
+            appendMessage('ai', res);
+        }
+    } catch (e) {
+        appendMessage('ai', "🥥 CoCo couldn't read that file. Is it too big?");
+    } finally {
+        loader.classList.add('hidden');
+        userInput.focus();
+    }
+}
 
 // --- 1. LOCAL STORAGE LIBRARY ---
 function saveToLibrary(url) {
