@@ -52,23 +52,34 @@ header { background: #111; padding: 15px; border-bottom: 1px solid #333; display
 #loader img { width: 50px; border-radius: 10px; }
 
 /* file thing I dont know this on */
+.input-area {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, #0a0a0a 90%, transparent);
+    display: flex;
+    flex-direction: column;
+}
+
 #filePreview {
-    background: #252525;
-    padding: 5px 15px;
+    background: #1a1a1a;
+    padding: 8px 15px;
     border-radius: 10px;
     font-size: 0.8rem;
     color: var(--coco-accent);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px dashed var(--coco-accent);
+    border: 1px dashed #444;
+    max-width: fit-content;
 }
 
 #removeFile {
     cursor: pointer;
     color: #ff4444;
+    margin-left: 15px;
     font-weight: bold;
-    font-size: 1.2rem;
-    margin-left: 10px;
 }
