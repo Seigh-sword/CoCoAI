@@ -50,3 +50,25 @@ header { background: #111; padding: 15px; border-bottom: 1px solid #333; display
 /* Loader */
 #loader { position: fixed; bottom: 90px; left: calc(var(--sidebar-w) + 20px); z-index: 50; pointer-events: none; }
 #loader img { width: 50px; border-radius: 10px; }
+
+/* file thing I dont know this on */
+#filePreview {
+    background: #252525;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    color: var(--coco-accent);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px dashed var(--coco-accent);
+}
+
+#removeFile {
+    cursor: pointer;
+    color: #ff4444;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
