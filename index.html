@@ -11,83 +11,12 @@
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Seigh-sword/Free-AI-For-All/refs/heads/main/assets/CoCoAiIcon.png">
 
 <script>
-  // Register the Service Worker
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js');
   }
 </script>
 </head>
 <body>
-
-    <div id="sidebar">
-        <div class="sidebar-header">
-            <img src="https://raw.githubusercontent.com/Seigh-sword/Free-AI-For-All/refs/heads/main/assets/CoCoAiIcon.png" width="30">
-            CoCo Menu
-        </div>
-        <nav>
-            <div class="nav-item" onclick="hidePanels()">Chat</div>
-            <div class="nav-item" onclick="showPanel('library')">Library</div>
-            <div class="nav-item" onclick="showPanel('settings')">Settings</div>
-        </nav>
-        <div class="sidebar-footer">
-            <small>Powered by Pollinations.ai</small>
-        </div>
-    </div>
-
-    <div id="main-content">
-        <header>
-            <div class="header-info">
-                <strong>CoCo AI</strong>
-                <span id="statusText">System Online</span>
-            </div>
-            <div class="status-dot active"></div>
-        </header>
-
-        <div id="chat">
-            <div class="msg ai">
-                <img src="https://raw.githubusercontent.com/Seigh-sword/Free-AI-For-All/refs/heads/main/assets/CoCoAiIcon.png" class="ai-icon">
-                <span>Welcome! pal, to your new AI campanion</span>
-            </div>
-        </div>
-
-        <div id="loader" class="hidden">
-            <img src="https://raw.githubusercontent.com/Seigh-sword/CoCoAI/refs/heads/main/assets/CoCoImageLoading.gif" alt="Thinking...">
-        </div>
-
- <div class="input-area">
-    <div id="filePreview" class="hidden"></div> 
-    <input type="file" id="filePicker" style="display: none;" accept=".txt,.js,.css,.html,.md,.json">
-    
-    <div class="input-bar">
-        <button id="attachBtn" title="Attach Text File">📎</button>
-        <input type="text" id="userInput" placeholder="Message or /image..." autocomplete="off">
-        <button id="sendBtn">Send</button>
-    </div>
-</div>
-        
-    <div id="library-panel" class="panel hidden">
-        <div class="panel-header">
-            <h2>Image Library</h2>
-            <button class="close-btn" onclick="hidePanels()">×</button>
-        </div>
-        <div id="library-grid"></div>
-        <button onclick="clearLibrary()" style="margin-top:20px; background:#e74c3c;">Clear All Images</button>
-    </div>
-
-    <div id="settings-panel" class="panel hidden">
-        <div class="panel-header">
-            <h2>CoCo Settings</h2>
-            <button class="close-btn" onclick="hidePanels()">×</button>
-        </div>
-        <div style="margin-top: 20px;">
-            <h3>AI Personality</h3>
-            <p>Model: OpenAI (GPT-5.2) / Flux (Images)</p>
-            <hr style="border-color: #333;">
-            <h3>Troubleshooting</h3>
-            <button onclick="location.reload()">Reload App</button>
-        </div>
-    </div>
-
-    <script type="module" src="webpage/script.js"></script>
+Sorry this is currently under development :(
 </body>
 </html>
